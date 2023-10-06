@@ -1,21 +1,22 @@
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Image, Row } from "react-bootstrap";
 import { formatedNullString } from "../../utils/formatter";
+import { Link } from "react-router-dom";
+import { LinkText } from "../link";
 
-export function ProductRow({ data }) {
+export function ProductInfo({ data }) {
   return (
-    <Col
-      className="col my-2"
-      style={{ minWidth: "200px" }}
-    >
+    <Col className="col my-2" style={{ maxWidth: "18rem", minWidth: "200px" }}>
       <Card>
-        <Card.Img variant="top" src={`/img/product/${data.image}`} />
+        <Link to={`/products/${data.id}`}>
+          <Card.Img variant="top" src={`/img/product/${data.image}`} />
+        </Link>
         <Card.Body>
           <Card.Title className="mb-3">
-            <div className="d-flex text-center">
-              <span>{data.productName}</span>
-              <span>-</span>
-              <span>{formatedNullString(data.shortDescription)}</span>
-            </div>
+            <LinkText href={`/products/${data.id}`}>
+              <div className="d-flex text-center">
+                <span>{data.productName}</span>
+              </div>
+            </LinkText>
           </Card.Title>
           <Card.Text>
             <span className="fw-semibold">Product Code:</span>
@@ -39,7 +40,14 @@ export function ProductRow({ data }) {
           </Card.Text>
           <Card.Text>
             <span className="fw-semibold">Status:</span>
-            <span> {data.status ? (<span className="text-success">Còn hàng</span>) : (<span className="text-danger">Hết hàng</span>)}</span>
+            <span>
+              {" "}
+              {data.status ? (
+                <span className="text-success">Còn hàng</span>
+              ) : (
+                <span className="text-danger">Hết hàng</span>
+              )}
+            </span>
           </Card.Text>
         </Card.Body>
       </Card>
@@ -47,11 +55,53 @@ export function ProductRow({ data }) {
   );
 }
 
-export function ProductTable({ products }) {
+export function ProductDetailInfo({ product }) {
+  return (
+    <Row>
+      <Col md={5} className="d-flex align-items-center justify-content-center">
+        <Image src={`/img/product/${product.image}`} fluid className="w-100" />
+      </Col>
+      <Col >
+        <dt>Product Name:</dt>
+        <dd> {formatedNullString(product.productName)}</dd>
+
+        <dt>Product Code:</dt>
+        <dd> {formatedNullString(product.productCode)}</dd>
+
+        <dt>Price:</dt>
+        <dd> {product.productPrice} VND</dd>
+
+        <dt>Discount:</dt>
+        <dd> {product.percentDiscount}%</dd>
+
+        <dt>Short Description:</dt>
+        <dd> {formatedNullString(product.shortDescription)}</dd>
+
+        <dt>Description:</dt>
+        <dd> {formatedNullString(product.description)}</dd>
+
+        <dt>Stock:</dt>
+        <dd> {product.stock}</dd>
+
+        <dt>Status:</dt>
+        <dd>
+          {" "}
+          {product.status ? (
+            <span className="text-success">Còn hàng</span>
+          ) : (
+            <span className="text-danger">Hết hàng</span>
+          )}
+        </dd>
+      </Col>
+    </Row>
+  );
+}
+
+export function ProductList({ products }) {
   const rows = [];
 
   products.forEach((product) => {
-    rows.push(<ProductRow data={product} key={product.id} />);
+    rows.push(<ProductInfo data={product} key={product.id} />);
   });
 
   return (

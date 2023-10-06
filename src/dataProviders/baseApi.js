@@ -1,5 +1,5 @@
-import snackbarUtils from "@/utils/snackbar-utils";
-import { axiosInstance } from "@/auth/axiosHeader";
+
+import { axiosInstance } from "../auth/axiosHeader";
 
 const axiosDisplayError = {
   ERR_NETWORK: "Lỗi kết nối",
@@ -15,34 +15,32 @@ const axiosError = (response) => {
 
   if (axiosDisplayError[response.code]) {
     console.log(axiosDisplayError[response.code]);
-    snackbarUtils.error(axiosDisplayError[response.code]);
   }
 };
 
 const apiError = (response) => {
-  const apiStatusError = {
-    403: {
-      action: () => {},
-      message: "Không có quyền",
-      returnUrl: "/",
-    },
-    401: {
-      action: () => {
-        window.sessionStorage.setItem("authenticated", "false")
-      },
-      message: "Hết hạn token",
-      returnUrl: "/auth/login",
-    },
-  };
-
-  if (apiStatusError[response.response?.status]) {
-    apiStatusError[response.response.status].action;
-    snackbarUtils.error(apiStatusError[response.response.status].message);
-    window.location.href = apiStatusError[response.response.status].returnUrl;
-    return true;
-  }
-
-  return false;
+  // const apiStatusError = {
+  //   403: {
+  //     action: () => {},
+  //     message: "Không có quyền",
+  //     returnUrl: "/",
+  //   },
+  //   401: {
+  //     action: () => {
+  //       window.sessionStorage.setItem("authenticated", "false")
+  //     },
+  //     message: "Hết hạn token",
+  //     returnUrl: "/auth/login",
+  //   },
+  // };
+  //
+  // if (apiStatusError[response.response?.status]) {
+  //   apiStatusError[response.response.status].action;
+  //   window.location.href = apiStatusError[response.response.status].returnUrl;
+  //   return true;
+  // }
+  //
+  // return false;
 };
 
 const catchError = (err) => {

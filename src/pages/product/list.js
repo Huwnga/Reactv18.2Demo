@@ -1,11 +1,11 @@
 // import { useState } from "react";
 import Container from "react-bootstrap/Container";
-import { Layout } from "../layouts/layout";
 import { useEffect, useState } from "react";
-import { getAll } from "../dataProviders/productApi";
-import { ProductList } from "../compoments/list/product";
+import { ProductList } from "../../compoments/list/product";
+import { getAll } from "../../dataProviders/productApi";
+import { Layout } from "../../layouts/layout";
 
-function HomePage() {
+function List() {
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -50,4 +50,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default List;

@@ -1,4 +1,4 @@
-import { getApi } from "@/dataProvider/baseApi";
+import {getApi} from "./baseApi";
 
 const path = "product";
 
@@ -13,10 +13,11 @@ function getAll(params) {
   return getApi(productApiPath.mainPath, params);
 }
 
-function getOne(params) {
-  return getApi(productApiPath.mainPath, params);
+function getOne(productId) {
+  return getApi(`${productApiPath.mainPath}/productId=${productId}`);
 }
 
 export {
-  getAllCourse
+  getAll,
+  getOne
 }
